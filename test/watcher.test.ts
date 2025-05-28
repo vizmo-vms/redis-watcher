@@ -16,15 +16,16 @@ import { newEnforcer } from 'casbin';
 import { RedisWatcher } from '../src/watcher';
 
 test('Test single Watcher on Redis', async () => {
-  const watcher = await RedisWatcher.newWatcher('redis://localhost:6379/4');
+  const watcher = await RedisWatcher.newWatcher('redis://localhost:6379/5');
   const enforcer = await newEnforcer('examples/authz_model.conf', 'examples/authz_policy.csv');
   enforcer.setWatcher(watcher);
   
-  await new Promise<void>((resolve) => {
+  const updatePromise = new Promise<void>((resolve) => {
     watcher.setUpdateCallback(resolve);
   });
   
   await enforcer.savePolicy();
+  await updatePromise;
   await watcher.close();
 });
 

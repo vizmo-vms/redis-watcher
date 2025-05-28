@@ -1,5 +1,5 @@
 import { Watcher } from 'casbin';
-import { RedisClusterConnection, RedisConnection, RedisClient } from './redis';
+import { RedisClusterConnection, RedisConnection } from './redis';
 import { ClusterNode, ClusterOptions, RedisOptions } from 'ioredis';
 
 export interface WatcherOptions extends RedisOptions {
